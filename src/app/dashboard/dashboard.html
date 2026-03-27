@@ -1,0 +1,71 @@
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2>Student Dashboard</h2>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT MENU -->
+    <div class="sidebar">
+      <h4>Menu</h4>
+      <button (click)="view='list'">View Students</button>
+      <button (click)="view='add'">Add Student</button>
+    </div>
+
+    <!-- CENTER CONTENT -->
+    <div class="content">
+
+      <!-- TABLE -->
+      <div *ngIf="view==='list'">
+        <h3>Student List</h3>
+        <input 
+    type="text" 
+    placeholder="Search by name or email..." 
+    [(ngModel)]="searchText"
+  />
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Action</th>
+          </tr>
+
+          <tr *ngFor="let s of students | filter:searchText">
+            <td>{{s.name}}</td>
+            <td>{{s.email}}</td>
+            <td>{{s.course}}</td>
+            <td>
+              <button (click)="editStudent(s)">Edit</button>
+              <button (click)="deleteStudent(s.id)">Delete</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ADD FORM -->
+      <div *ngIf="view==='add'">
+        <h3>Add Student</h3>
+
+        <input [(ngModel)]="name" placeholder="Name">
+        <input [(ngModel)]="email" placeholder="Email">
+        <input [(ngModel)]="course" placeholder="Course">
+
+        <button (click)="addStudent()">
+          {{ editMode ? 'Update' : 'Add' }}
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL (LOGOUT) -->
+    <div class="right-panel">
+      <button (click)="logout()">Logout</button>
+    </div>
+
+  </div>
+
+</div>
